@@ -12,12 +12,12 @@ class First extends StatefulWidget {
 
 class _FirstState extends State<First> {
   final todoitem = Todo.todoitem();
-  final todocontroller=TextEditingController();
+  final todocontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
-      appBar: buildAppBar(),
+      // appBar: buildAppBar(),
       body: Stack(
         children: [
           Container(
@@ -38,7 +38,9 @@ class _FirstState extends State<First> {
                       ),
                       for (Todo todoo in todoitem.reversed)
                         Todolist(
-                          todo: todoo, OnTodochande: handleToDoChange, Ondelete:deleteitem,
+                          todo: todoo,
+                          OnTodochande: handleToDoChange,
+                          Ondelete: deleteitem,
                         ),
                     ],
                   ),
@@ -63,15 +65,14 @@ class _FirstState extends State<First> {
                     ),
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     child: TextField(
-                     controller: todocontroller,
+                      controller: todocontroller,
                       decoration: InputDecoration(
                           hintText: "Add New Todo", border: InputBorder.none),
                     ),
                   ),
                 ),
-
                 Container(
-                    margin: EdgeInsets.only(bottom: 10, right: 20),
+                    margin: EdgeInsets.only(bottom: 20, right: 20),
                     child: ElevatedButton(
                       onPressed: () {
                         todoadd(todocontroller.text);
@@ -80,7 +81,12 @@ class _FirstState extends State<First> {
                         "+",
                         style: TextStyle(fontSize: 40),
                       ),
-                      style: ElevatedButton.styleFrom(minimumSize: Size(70, 70),backgroundColor: Colors.blue,foregroundColor: Colors.white,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                      style: ElevatedButton.styleFrom(
+                          minimumSize: Size(70, 70),
+                          backgroundColor: Colors.blue,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10))),
                     ))
               ],
             ),
@@ -89,21 +95,25 @@ class _FirstState extends State<First> {
       ),
     );
   }
-  void todoadd(String ToDo){
-   setState(() {
-     todoitem.add(Todo(id: DateTime.now().millisecondsSinceEpoch.toString(), todotext: ToDo));
-   });
-   todocontroller.clear();
+
+  void todoadd(String ToDo) {
+    setState(() {
+      todoitem.add(Todo(
+          id: DateTime.now().millisecondsSinceEpoch.toString(),
+          todotext: ToDo));
+    });
+    todocontroller.clear();
   }
-  void handleToDoChange(Todo todo){
+
+  void handleToDoChange(Todo todo) {
     setState(() {
       todo.isDone = !todo.isDone;
     });
-
   }
-  void deleteitem(String ID){
+
+  void deleteitem(String ID) {
     setState(() {
-      todoitem.removeWhere((item)=>item.id==ID);
+      todoitem.removeWhere((item) => item.id == ID);
     });
   }
 
@@ -125,28 +135,28 @@ class _FirstState extends State<First> {
   //       ));
   // }
 
-  AppBar buildAppBar() {
-    return AppBar(
-      backgroundColor: Colors.grey.shade300,
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.menu),
-          ),
-          Container(
-            height: 50,
-            width: 50,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(50),
-              child: Image.asset(
-                "assets/todo.jpeg",
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
+  // AppBar buildAppBar() {
+  //   return AppBar(
+  //     backgroundColor: Colors.grey.shade300,
+  //     title: Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //       children: [
+  //         IconButton(
+  //           onPressed: () {},
+  //           icon: Icon(Icons.menu),
+  //         ),
+  //         Container(
+  //           height: 50,
+  //           width: 50,
+  //           child: ClipRRect(
+  //             borderRadius: BorderRadius.circular(50),
+  //             child: Image.asset(
+  //               "assets/todo.jpeg",
+  //             ),
+  //           ),
+  //         )
+  //       ],
+  //     ),
+  //   );
+  // }
 }
